@@ -10,35 +10,43 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    - name: List root directory contents after checkout
-      run: ls -alh
+      - name: Print working directory
+        run: pwd
 
-    - name: Print working directory
-      run: pwd
+      - name: List root directory contents after checkout
+        run: ls -alh
 
-    - name: Setup Java
-      uses: actions/setup-java@v3
-      with:
-        java-version: '11'
-        distribution: 'temurin' # or 'adopt', 'zulu', etc.
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin' # or 'adopt', 'zulu', etc.
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18'
-      env:
-        GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+        env:
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
 
-    - name: Setup semantic-release
-      run: npm install -g semantic-release @semantic-release/changelog @semantic-release/commit-analyzer @semantic-release/exec @semantic-release/git @semantic-release/release-notes-generator
+      - name: Setup semantic-release
+        run: npm install -g semantic-release @semantic-release/changelog @semantic-release/commit-analyzer @semantic-release/exec @semantic-release/git @semantic-release/release-notes-generator
 
-    - name: List root directory contents before release
-      run: ls -alh
+      - name: Convert line endings to Unix format
+        run: |
+          sudo apt-get install -y dos2unix
+          dos2unix ./prepare-release.sh
 
-    - name: Release
-      env:
-        GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
-      run: ./prepare-release.sh && npx semantic-release
+      - name: Ensure prepare-release.sh is executable
+        run: chmod +x ./prepare-release.sh
+
+      - name: List root directory contents before release
+        run: ls -alh
+
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
+        run: ./prepare-release.sh && npx semantic-release

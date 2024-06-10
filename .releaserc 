@@ -1,41 +1,37 @@
 {
-     "branches": "main",
-     "repositoryUrl": "https://github.com/omarsafwany/semVerTest",
-     "debug": "true",
-     "plugins": [
-        "@semantic-release/commit-analyzer",
-        "@semantic-release/release-notes-generator",
-        [
-            "@semantic-release/changelog",
-            {
-                "changelogFile": "README.md",
-                "changelogTitle": "# Semantic Versioning Changelog"
-            }
-        ],
-        [
-            "@semantic-release/exec",
-            {
-                "prepareCmd": "./prepare-release.sh ${nextRelease.version}"
-            }
-        ],
-        [
-            "@semantic-release/git",
-            {
-                "assets": [
-                    "CHANGELOG.md",
-                    "pom.xml"
-                ]
-            }
-        ],
-        [
-            "@semantic-release/github",
-            {
-                "assets": [
-                    {
-                        "path": "src/**"
-                    }
-                ]
-            }
+  "branches": ["main"],
+  "repositoryUrl": "https://github.com/omarsafwany/semVerTest.git",
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    [
+      "@semantic-release/changelog",
+      {
+        "changelogFile": "CHANGELOG.md",
+        "changelogTitle": "# Semantic Versioning Changelog"
+      }
+    ],
+    [
+      "@semantic-release/exec",
+      {
+        "prepareCmd": "./prepare-release.sh ${nextRelease.version}"
+      }
+    ],
+    [
+      "@semantic-release/git",
+      {
+        "assets": ["CHANGELOG.md", "pom.xml"]
+      }
+    ],
+    [
+      "@semantic-release/github",
+      {
+        "assets": [
+          {
+            "path": "release/**"
+          }
         ]
+      }
     ]
+  ]
 }

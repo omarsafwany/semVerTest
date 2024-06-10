@@ -7,5 +7,6 @@ import org.springframework.boot.runApplication
 class SemVerTestApplication
 
 fun main(args: Array<String>) {
+	println("print msg")
 	runApplication<SemVerTestApplication>(*args)
 }

@@ -29,7 +29,16 @@ jobs:
     - name: Setup semantic-release
       run: npm install -g semantic-release @semantic-release/changelog @semantic-release/commit-analyzer @semantic-release/exec @semantic-release/git @semantic-release/release-notes-generator
 
-    - name: release
+    - name: List current directory contents
+      run: ls -alh
+
+    - name: List parent directory contents
+      run: ls -alh ..
+
+    - name: List grandparent directory contents
+      run: ls -alh ../..
+
+    - name: Release
       env:
         GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
-      run: chmod +x ./prepare-release.sh && npx semantic-release
+      run: chmod +x ../../prepare-release.sh && npx semantic-release

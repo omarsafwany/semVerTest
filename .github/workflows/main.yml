@@ -28,3 +28,8 @@ jobs:
 
     - name: Setup semantic-release
       run: npm install -g semantic-release @semantic-release/changelog @semantic-release/commit-analyzer @semantic-release/exec @semantic-release/git @semantic-release/release-notes-generator
+
+    - name: release
+      env:
+        GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
+      run: chmod +x ./prepare-release.sh && npx semantic-release

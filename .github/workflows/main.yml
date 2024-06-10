@@ -16,6 +16,9 @@ jobs:
     - name: List root directory contents after checkout
       run: ls -alh
 
+    - name: Print working directory
+      run: pwd
+
     - name: Setup Java
       uses: actions/setup-java@v3
       with:
@@ -31,6 +34,9 @@ jobs:
 
     - name: Setup semantic-release
       run: npm install -g semantic-release @semantic-release/changelog @semantic-release/commit-analyzer @semantic-release/exec @semantic-release/git @semantic-release/release-notes-generator
+
+    - name: List root directory contents before making script executable
+      run: ls -alh
 
     - name: Ensure prepare-release.sh is executable
       run: chmod +x ./prepare-release.sh
